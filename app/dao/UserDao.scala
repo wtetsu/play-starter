@@ -15,11 +15,11 @@ class UserDao @Inject()(
 
   import profile.api._
 
-  private val Stocks = TableQuery[StocksTable]
+  private val Users = TableQuery[UsersTable]
 
-  def all(): Future[Seq[User]] = db.run(Stocks.result)
+  def all(): Future[Seq[User]] = db.run(Users.result)
 
-  private class StocksTable(tag: Tag) extends Table[User](tag, "users") {
+  private class UsersTable(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Long]("id", O.PrimaryKey)
 
     def firstName = column[String]("first_name")
