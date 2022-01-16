@@ -1,20 +1,22 @@
 package controllers
 
+import dao.UserDao
 import play.api.libs.json._
 import play.api.mvc._
 import models.User
 
 import javax.inject.Inject
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext
 
-class UsersController @Inject()(cc: ControllerComponents)
+class UsersController @Inject()(userDao: UserDao, cc: ControllerComponents, ec: ExecutionContext)
   extends AbstractController(cc) {
 
   def hello(): Action[AnyContent] = Action(Ok("Hello World"))
 
-  def get(): Action[AnyContent] = Action {
+  def get() = Action.async {
     implicit val userWrites: OWrites[User] = Json.writes[User]
-    val users = List(User("Taro", 25), User("Jiro", 80), User("Saburo", 95))
-    val json = Json.toJson(users)
-    Ok(json)
+    val futureUsers = userDao.all();
+    futureUsers.map(users => Ok(Json.toJson(users)))(ec)
   }
 }

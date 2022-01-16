@@ -1,5 +1,3 @@
 package models
 
-case class User(name: String, age: Int) {
-
-}
+case class User(val id: Long, val firstName: String, val lastName: String, val email: String)

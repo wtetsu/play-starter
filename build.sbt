@@ -15,3 +15,10 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0
 
 // Adds additional packages into conf/routes
 // play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+
+libraryDependencies += javaJdbc
+
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-slick" % "5.0.0",
+  "mysql" % "mysql-connector-java" % "8.0.15",
+)
