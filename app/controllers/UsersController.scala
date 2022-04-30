@@ -19,4 +19,10 @@ class UsersController @Inject()(userDao: UserDao, cc: ControllerComponents, ec: 
     val futureUsers = userDao.all();
     futureUsers.map(users => Ok(Json.toJson(users)))(ec)
   }
+
+  def find(id: Long) = Action.async {
+    implicit val userWrites: OWrites[User] = Json.writes[User]
+    val futureUsers = userDao.findById(id)
+    futureUsers.map(users => Ok(Json.toJson(users)))(ec)
+  }
 }

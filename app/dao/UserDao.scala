@@ -19,6 +19,8 @@ class UserDao @Inject()(
 
   def all(): Future[Seq[User]] = db.run(Users.result)
 
+  def findById(userId: Long): Future[Seq[User]] = db.run(Users.filter(_.id === userId).result)
+
   private class UsersTable(tag: Tag) extends Table[User](tag, "users") {
     def id = column[Long]("id", O.PrimaryKey)
 
